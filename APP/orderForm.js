@@ -48,7 +48,15 @@ class OrderForm {
         }
         const buttonOrder = document.getElementById('order')
 
-        buttonOrder.addEventListener('click', this.onClickValidateOrder.bind(this))
+        buttonOrder.addEventListener('click', this.onClickValidateOrder.bind(this));
+
+        const buttonSubmit = document.getElementById('submit');
+        buttonSubmit.addEventListener('submit', this.onSubmit.bind(this));
+    }
+
+    onSubmit(event) 
+    {   //evite le comportement par defaut du navigateur (regette HTTP)
+        event.preventDefault();
     }
 
     onClickChangeQuantity(event) {
