@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="vendor/Semantic-UI-CSS-master/semantic.min.css">
+    <link rel="stylesheet" href="CSS/index.css">
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <title>Allo PIZZA!</title>
+</head>
+
+<body>
+    <h1 class="ui center aligned segment">Allo PIZZA!</h1>
+    <div class="ui four column doubling stackable grid container">
+        <div class="ui link cards">
+            <div class="card">
+                <div class="image">
+                    <img src="CSS/img/pizza1.jpg">
+                </div>
+                <div class="content">
+                    <div class="header">Matt Giampietro</div>
+                    <div class="description">
+                        lorem ipsoum
+                    </div>
+                </div>
+
+                <div class="extra content">
+                    <div class="six wide column">
+                        <div class="ui buttons">
+                            <button data-pizza='matt' data-action='plus' class="ui button counter">
+                                <i class="plus icon"></i>
+                            </button>
+                            <button data-pizza='matt' data-action='minus' class="ui button counter">
+                                <i class="minus icon"></i>
+                            </button>
+                        </div>
+                        <div style="width: 50%" class="ui small input right floated">
+                            <input id='quantity-matt' type="text" disabled value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="image">
+                    <img src="CSS/img/pizza2.jpg">
+                </div>
+                <div class="content">
+                    <div class="header">Molly</div>
+                    <div class="meta">
+                        <span class="date">Coworker</span>
+                    </div>
+                    <div class="description">
+                        Molly is a personal assistant living in Paris.
+                    </div>
+                </div>
+                <div class="extra content">
+                    <div class="six wide column">
+                        <div class="ui buttons">
+                            <button data-pizza='molly' data-action='plus' class="ui button counter">
+                                <i class="plus icon"></i>
+                            </button>
+                            <button data-pizza='molly' data-action='minus' class="ui button counter">
+                                <i class="minus icon"></i>
+                            </button>
+                        </div>
+                        <div style="width: 50%" class="ui small input right floated">
+                            <input id='quantity-molly' type="text" disabled value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="image">
+                    <img src="CSS/img/pizza3.jpg">
+                </div>
+                <div class="content">
+                    <div class="header">Elyse</div>
+                    <div class="meta">
+                        <a>Coworker</a>
+                    </div>
+                    <div class="description">
+                        Elyse is a copywriter working in New York.
+                    </div>
+                </div>
+
+                <div class="extra content">
+                    <div class="six wide column">
+                        <div class="ui buttons">
+                            <button data-pizza='elyse' data-action='plus' class="ui button counter">
+                                <i class="plus icon"></i>
+                            </button>
+                            <button data-pizza='elyse' data-action='minus' class="ui button counter">
+                                <i class="minus icon"></i>
+                            </button>
+                        </div>
+                        <div style="width: 50%" class="ui small input right floated">
+                            <input id='quantity-elyse' type="text" disabled value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="image">
+                    <img src="CSS/img/pizza4.jpg">
+                </div>
+
+                <div class="content">
+                    <div class="header">Elyse</div>
+                    <div class="meta">
+                        <a>Coworker</a>
+                    </div>
+                    <div class="description">
+                        Elyse is a copywriter working in New York.
+                    </div>
+                </div>
+
+                <div class="extra content">
+                    <div class="six wide column">
+                        <div class="ui buttons">
+                            <button data-pizza='elyse4' data-action='plus' class="ui button counter">
+                                <i class="plus icon"></i>
+                            </button>
+                            <button data-pizza='elyse4' data-action='minus' class="ui button counter">
+                                <i class="minus icon"></i>
+                            </button>
+                        </div>
+                        <div style="width: 50%" class="ui small input right floated">
+                            <input id='quantity-elyse4' type="text" disabled value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>PIZZA</th>
+                    <th>PRIX UNITAIRE</th>
+                    <th>QUANTITE</th>
+                    <th>PRIX TOTAL</th>
+                </tr>
+            </thead>
+
+            <tbody id="product-rows"></tbody>
+            <template id="product-template">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="ui right aligned"></td>
+                </tr>
+            </template>
+
+            <tfoot class="full-width">
+                <tr>
+                    <td class="ui right aligned" colspan="3">TOTAL H.T</td>
+                    <td class="ui right aligned" id="ht">0</td>
+                </tr>
+                <tr>
+                    <td class="ui right aligned" colspan="3">T.V.A (20%)</td>
+                    <td class="ui right aligned" id="tva">0</td>
+                </tr>
+                <tr>
+                    <td class="ui right aligned" colspan="3">TOTAL T.T.C</td>
+                    <td class="ui right aligned" id="ttc">0</td>
+                </tr>
+            </tfoot>
+
+        </table>
+
+        <button id="order" disabled class="ui basic button">
+            <i class="icon cart arrow down"></i>
+            Payer
+        </button>
+
+        <section id="order-funel" class="ui segment payment">
+            <div class="ui three steps">
+                <div class="step">
+                    <i class="truck icon"></i>
+                    <div class="content">
+                        <div class="title">Payer</div>
+                    </div>
+                </div>
+
+                <div class="active step">
+                    <i class="payment icon"></i>
+                    <div class="content">
+                        <div class="title">Billing</div>
+                    </div>
+                </div>
+
+                <div class="disabled step">
+                    <i class="info icon"></i>
+                    <div class="content">
+                        <div class="title">Confirm Order</div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+            </div>
+        </section>
+    </div>
+
+    <script type="module" src="APP/index.js"></script>
+</body>
+
+</html>
