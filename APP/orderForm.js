@@ -50,7 +50,7 @@ class OrderForm {
 
         buttonOrder.addEventListener('click', this.onClickValidateOrder.bind(this));
 
-        const buttonSubmit = document.getElementById('submit');
+        const buttonSubmit = document.getElementById('payment-form');
         buttonSubmit.addEventListener('submit', this.onSubmit.bind(this));
     }
 
